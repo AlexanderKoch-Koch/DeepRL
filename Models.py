@@ -51,9 +51,10 @@ class simple_DNN():
 
     def predict(self, tf_session, input, summary=False):
         if summary:
-            return tf_session.run([self.tf_out, self.tf_out_summary], feed_dict={self.tf_x: input})
+            output, summary = tf_session.run([self.tf_out, self.tf_out_summary], feed_dict={self.tf_x: input})
+            return output, summary
         else:
-            return tf_session.run([self.tf_out], feed_dict={self.tf_x: input})
+            return tf_session.run([self.tf_out], feed_dict={self.tf_x: input})[0]
 
     def train(self, tf_session, input, output):
         loss, _ = tf_session.run([self.tf_loss, self.optimizer], feed_dict={self.tf_x: input, self.tf_y: output})
